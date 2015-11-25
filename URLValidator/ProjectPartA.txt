@@ -1,0 +1,54 @@
+CS 362 Project 1, Part A Report
+
+Project Members
+===============
+Robert Ottolia
+Kenny Lu
+Frank Eslami
+
+1. Explain testIsValid Function of UrlValidator test code
+=========================================================
+Creates a set of tests by taking the testUrlXXX arrays and running through all possible permutations of their combinations.
+
+Loops through the testUrlParts array which is filled with objects.  Each of these objects contains multiple ResultPais  that holds various data pertaining to the object and whether or not the data is valid (true or false).  The objects consist of a  testUrlScheme, a testUrlAuthority, a testUrlPort, a testPath, and a testUrlQuery, each of these an array containing values that are valid are those that are not.  A complete URL is composed of a scheme + authority + port + path + query so essential it is looping through each of these and checking against accepted values.  
+
+
+2. How many total number of urls is it testing
+===============================================
+The total number of invalid urls tested is 31,920.
+The total number of valid urls tested is 10,884.
+The grand total of all urls tested is 42,804.
+
+
+3. Explain how it is building all the urls
+===========================================
+The testIsValid function has an array of Objects as one of its parameters.  Each object in this array is one of the pieces that is part of a complete URL (scheme, authority, port, path, query).  Each of these objects contains an array of ResultPairs which store a string representing a piece that could fit into that part of the URL and whether or not it is valid (true or false).  
+
+The function loops through each of the required parts of a URL and obtains one ResultPair from each part and appends it to the string buffer to make a complete result. After each iteration, the boolean from the ResultPair (representing whether the string example in the ResultPair is valid or not), has boolean AND operation performed with the boolean expected, which initially is set as true.  This means that if we obtain a part of the URL  that is not valid from one of the five objects (a ResultPair with a false value), the overall expected boolean is false.  This means we expect calling the main isValid() function will also return a false result when determining whether that URL is valid.  Assert is then used to determine whether the two booleans obtained from isValid() and testIsValid() are equal.
+
+On the other hand, if all individual parts of the URL being tested are valid, then we expect the overall boolean to be true.
+
+
+4. Give an example of valid url being tested
+============================================
+h3t://go.cc:65636/test1/file
+
+
+5. Give an example of an invalid url being tested
+=================================================
+://aaa:0/$23?action=edit&mode=up
+
+
+6. Do you think that a real world test (URL Validator's testIsValid() test in this case) is very different than the unit tests and card tests that we wrote (in terms of concepts & complexity)? Explain in few lines.
+==========================================================================
+Conceptually, real world tests such as the URL Validator’s testIsValid() is not very different than the unit tests and card tests that we wrote. The same basic principle apply, such as:
+  a. Identify what you want to test by labeling true and false conditions
+  b. Write code to generate relevant input for the domain (strong knowledge of the domain’s requirement are necessary)
+  c. Create a good Oracle, keeping preconditions in mind
+  d. Ensure sufficient code coverage
+  e. Improve Oracle until all problems that should be caught are caught
+  f. Repeat process
+
+As far as complexity goes, that depends on what is being tested. Unit testing targets the smaller aspects of an application. Naturally, the domain and complexity would be a smaller scale than tests that are not unit-based. 
+
+
